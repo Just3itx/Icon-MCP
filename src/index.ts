@@ -642,14 +642,19 @@ async function run() {
   await server.connect(transport);
   console.error("Icon MCP Server running on stdio");
 
-  const explorerDir = path.resolve(__dirname, "explorer");
+  let explorerDir = path.resolve(__dirname, "explorer");
   
   if (!fs.existsSync(explorerDir)) {
-    console.error(`Error: Explorer directory not found at ${explorerDir}`);
-    return;
+    const devExplorerDir = path.resolve(__dirname, "..", "explorer");
+    if (fs.existsSync(devExplorerDir)) {
+      explorerDir = devExplorerDir;
+    } else {
+      console.error(`Error: Explorer directory not found at ${explorerDir}`);
+      return;
+    }
   }
 
-  const httpServer = http.createServer((req, res) => {
+  const httpServer = http.createServer(async (req, res) => {
     try {
       const urlPath = req.url?.split('?')[0] || '/';
       let safePath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
@@ -664,6 +669,32 @@ async function run() {
         res.writeHead(403);
         res.end("Forbidden");
         return;
+      }
+
+      // Handle on-the-fly compilation of app.ts to app.js during development
+      if (path.basename(safePath) === 'app.js' && !fs.existsSync(filePath)) {
+        const tsPath = path.join(explorerDir, 'app.ts');
+        if (fs.existsSync(tsPath)) {
+          try {
+            const ts = await import("typescript");
+            const tsCode = fs.readFileSync(tsPath, "utf8");
+            const jsCode = ts.default.transpileModule(tsCode, {
+              compilerOptions: { 
+                target: ts.default.ScriptTarget.ES2022,
+                module: ts.default.ModuleKind.ESNext
+              }
+            }).outputText;
+
+            res.writeHead(200, { 
+              "Content-Type": "text/javascript",
+              "Cache-Control": "no-cache"
+            });
+            res.end(jsCode);
+            return;
+          } catch (tsError) {
+            console.error("Failed to dynamically compile app.ts:", tsError);
+          }
+        }
       }
 
       fs.stat(filePath, (err, stats) => {
