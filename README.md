@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="explorer/icon.png" width="128" height="128" alt="Icon MCP Logo" />
+  <img src="explorer/icon.svg" width="128" height="128" alt="Icon MCP Logo" />
   <h1>Icon MCP</h1>
   <p><strong>A Model Context Protocol (MCP) server for giving AI agents access to 200,000+ open-source icons.</strong></p>
 
@@ -12,21 +12,21 @@
 
 <hr />
 
-## 🌟 Overview
+## Overview
 
 **Icon MCP** bridges the gap between AI coding assistants and UI design. By leveraging the Iconify API, this server allows your AI agent (like Cursor, Claude Desktop, or Windsurf) to natively **search, customize, and generate** icons across 150+ libraries in real-time.
 
 Whether you need a React component from `lucide`, a Vue SVG from `heroicons`, or a complete favicon kit, your AI can now generate it instantly.
 
-## ✨ Features
+## Features
 
-- **🌐 Massive Library:** Search across 200,000+ icons from every Iconify-hosted library in a single query.
-- **🎨 Deep Customization:** Adjust color, size, stroke width, rotation, padding, opacity, drop shadows, and flip orientation.
-- **📦 Multi-Format Export:** Retrieve icons as `React`, `Vue`, `Svelte`, `Angular`, `Solid`, `Preact` components, or as raw `SVG`, `Data URL`, `PNG`, `WEBP`, `JPEG`, and `ICO`.
-- **🛠 Favicon Generation:** Create complete favicon kits (ICO + PNGs + HTML link tags) from any icon.
-- **🖼️ Built-in Explorer UI:** A local web app that launches with the server, letting you browse and preview icons visually at `http://127.0.0.1:16385`.
+- **Massive Library:** Search across 200,000+ icons from every Iconify-hosted library in a single query.
+- **Deep Customization:** Adjust color, size, stroke width, rotation, padding, opacity, drop shadows, and flip orientation.
+- **Multi-Format Export:** Retrieve icons as `React`, `Vue`, `Svelte`, `Angular`, `Solid`, `Preact` components, or as raw `SVG`, `Data URL`, `PNG`, `WEBP`, `JPEG`, and `ICO`.
+- **Favicon Generation:** Create complete favicon kits (ICO + PNGs + HTML link tags) from any icon.
+- **Built-in Explorer UI:** A local web app that launches with the server, letting you browse and preview icons visually at `http://127.0.0.1:16385`.
 
-## 🚀 Quick Start
+## Quick Start
 
 1. **Clone & Build:**
    ```bash
@@ -42,7 +42,7 @@ Whether you need a React component from `lucide`, a Vue SVG from `heroicons`, or
    ```
    > An interactive TUI will help you configure your preferred AI clients automatically.
 
-## ⚙️ Manual Configuration
+## Manual Configuration
 
 If you prefer to configure your AI client manually, see the individual setup guides in the [`docs/`](docs/) directory:
 
@@ -55,11 +55,11 @@ If you prefer to configure your AI client manually, see the individual setup gui
 | **Antigravity** | [Setup Guide](docs/setup-antigravity.md) |
 | **Gemini CLI** | [Setup Guide](docs/setup-gemini-cli.md) |
 
-> 🔗 **Looking for another client?** Check the [Documentation Index](docs/README.md) for 30+ supported clients including Cline, Zed, Goose, Aider, and standard JSON formats.
+> **Looking for another client?** Check the [Documentation Index](docs/README.md) for 30+ supported clients including Cline, Zed, Goose, Aider, and standard JSON formats.
 
-## 🛠 Available Tools
+## Available Tools
 
-Icon MCP exposes 14 tools to the AI. For full parameter definitions and example prompts, see the **📖 [Tools Reference](docs/tools-reference.md)**.
+Icon MCP exposes 14 tools to the AI. For full parameter definitions and example prompts, see the **[Tools Reference](docs/tools-reference.md)**.
 
 ### Core Tools
 - `query_search` — Search icons across all or specific libraries.
@@ -78,14 +78,14 @@ Icon MCP exposes 14 tools to the AI. For full parameter definitions and example 
 - `open_explorer` — Launch the visual icon browser.
 - `configure_explorer` — Toggle the auto-open behavior of the Explorer UI.
 
-## 💻 Icon Explorer
+## Icon Explorer
 
 When the server starts, it hosts a local Web UI at `http://127.0.0.1:16385`. This explorer allows you to:
 - Browse all 150+ libraries visually
 - Test customizations in real-time
 - Copy import statements or download generated assets directly
 
-## 🧪 Testing & Development
+## Testing & Development
 
 **Test the MCP server locally:**
 ```bash
@@ -97,6 +97,6 @@ npx @modelcontextprotocol/inspector node dist/index.js
 2. Run `npm run build`
 3. Restart your connected AI client
 
-## 📄 License
+## License
 
 This project is licensed under the [ISC License](LICENSE).

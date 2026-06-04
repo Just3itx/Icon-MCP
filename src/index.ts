@@ -642,7 +642,7 @@ async function run() {
   await server.connect(transport);
   console.error("Icon MCP Server running on stdio");
 
-  const explorerDir = path.resolve(__dirname, "..", "explorer");
+  const explorerDir = path.resolve(__dirname, "explorer");
   
   if (!fs.existsSync(explorerDir)) {
     console.error(`Error: Explorer directory not found at ${explorerDir}`);

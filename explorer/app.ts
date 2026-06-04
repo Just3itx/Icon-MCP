@@ -1,7 +1,14 @@
+// @ts-nocheck
 const API_BASE = "https://api.iconify.design";
 
+declare global {
+  var custColorPickr: any;
+  var custBgPickr: any;
+}
 
-const state = {
+
+
+const state: any = {
   view: 'home',
   collections: null,
   currentLibrary: null,
@@ -13,13 +20,13 @@ const state = {
 };
 
 
-const views = {
+const views: any = {
   home: document.getElementById('view-home'),
   library: document.getElementById('view-library'),
   customize: document.getElementById('view-customize')
 };
 
-const el = {
+const el: any = {
   logoBtn: document.getElementById('nav-home'),
   searchInput: document.getElementById('search-input'),
   libraryGrid: document.getElementById('library-grid'),
