@@ -1,122 +1,171 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300">
   <defs>
+    <!-- Background Gradient -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0c0c16"/>
-      <stop offset="100%" stop-color="#101020"/>
+      <stop offset="0%" stop-color="#0a0a16"/>
+      <stop offset="50%" stop-color="#0e0e22"/>
+      <stop offset="100%" stop-color="#070710"/>
     </linearGradient>
-    <!-- Box gradients -->
+
+    <!-- Box Colors -->
     <linearGradient id="boxFront" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#a07048"/>
+      <stop offset="0%" stop-color="#e6b17e"/>
+      <stop offset="100%" stop-color="#bd834f"/>
     </linearGradient>
     <linearGradient id="boxRight" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#b08050"/>
-      <stop offset="100%" stop-color="#7d5a38"/>
+      <stop offset="0%" stop-color="#ca935d"/>
+      <stop offset="100%" stop-color="#9d6635"/>
     </linearGradient>
-    <linearGradient id="flapL" x1="0%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#d4a574"/>
-      <stop offset="100%" stop-color="#e8c49a"/>
+    <linearGradient id="boxInner" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#69411b"/>
+      <stop offset="100%" stop-color="#3c220a"/>
     </linearGradient>
-    <linearGradient id="flapR" x1="0%" y1="100%" x2="50%" y2="0%">
-      <stop offset="0%" stop-color="#dbb088"/>
+    <linearGradient id="flapL" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e6b17e"/>
+      <stop offset="100%" stop-color="#f5cc9e"/>
+    </linearGradient>
+    <linearGradient id="flapR" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d9a26c"/>
       <stop offset="100%" stop-color="#ecd0ae"/>
     </linearGradient>
-    <linearGradient id="flapBack" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#c09060"/>
-      <stop offset="100%" stop-color="#d4a878"/>
-    </linearGradient>
-    <!-- Icon glows -->
-    <filter id="glow">
+    
+    <!-- Magical Inner Glow of the Box -->
+    <radialGradient id="boxMagicGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#6366f1" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft Glow Filter for Floating Elements -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
-    <filter id="softglow">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="boxShadow">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.4"/>
+
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#000000" flood-opacity="0.6"/>
     </filter>
   </defs>
 
   <!-- Background -->
   <rect width="900" height="300" rx="16" fill="url(#bg)"/>
 
-  <!-- Subtle grid dots -->
-  <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-    <circle cx="15" cy="15" r="0.5" fill="#ffffff" opacity="0.04"/>
+  <!-- Subtle grid lines -->
+  <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.02"/>
   </pattern>
-  <rect width="900" height="300" fill="url(#dots)"/>
+  <rect width="900" height="300" fill="url(#grid)"/>
 
-  <!-- ==================== BOX (centered ~x=220) ==================== -->
-  <g filter="url(#boxShadow)" transform="translate(140, 70)">
-    <!-- Box body: front face -->
-    <path d="M0,95 L130,95 L130,190 L0,190 Z" fill="url(#boxFront)"/>
-    <!-- Crease line -->
-    <line x1="65" y1="95" x2="65" y2="190" stroke="#b8854e" stroke-width="0.8" opacity="0.4"/>
+  <!-- Magical light beam/glow behind the box -->
+  <ellipse cx="230" cy="140" rx="150" ry="100" fill="url(#boxMagicGlow)" filter="url(#glow)" opacity="0.6"/>
+
+  <!-- ==================== BOX GROUP ==================== -->
+  <g filter="url(#boxShadow)" transform="translate(130, 80)">
+    <!-- Inside of the box (visible back walls of the opening) -->
+    <path d="M 12,-15 L 98,-15 L 140,15 L 50,15 Z" fill="url(#boxInner)"/>
     
-    <!-- Box body: right face -->
-    <path d="M130,95 L175,70 L175,165 L130,190 Z" fill="url(#boxRight)"/>
+    <!-- Magic glow leaking from inside -->
+    <polygon points="12,-15 98,-15 140,15 50,15" fill="#a78bfa" opacity="0.3" filter="url(#glow)"/>
+
+    <!-- Left Flap (lying down/angled back left) -->
+    <path d="M 12,-15 L -20,-30 L 15,-10 L 50,15 Z" fill="url(#flapL)" stroke="#ab733c" stroke-width="0.5"/>
     
-    <!-- Box tape (front) -->
-    <rect x="57" y="95" width="16" height="95" fill="#c4a06a" opacity="0.35" rx="1"/>
-    <!-- Box tape (top edge) -->
-    <line x1="65" y1="95" x2="65" y2="80" stroke="#c4a06a" stroke-width="8" opacity="0.2" stroke-linecap="round"/>
+    <!-- Back Flap (pointing upwards/backwards) -->
+    <path d="M 12,-15 L 35,-65 L 110,-55 L 98,-15 Z" fill="url(#flapR)" stroke="#925e2a" stroke-width="0.5"/>
 
-    <!-- Open flap: left -->
-    <path d="M0,95 L-8,68 L55,55 L65,95 Z" fill="url(#flapL)" stroke="#b8854e" stroke-width="0.6"/>
-    <!-- Open flap: right -->
-    <path d="M65,95 L75,48 L140,42 L130,95 Z" fill="url(#flapR)" stroke="#b8854e" stroke-width="0.6"/>
-    <!-- Open flap: back-right -->
-    <path d="M130,95 L140,42 L185,32 L175,70 Z" fill="url(#flapBack)" stroke="#b8854e" stroke-width="0.6"/>
+    <!-- Box Side (Right Face) -->
+    <path d="M 98,-15 L 140,15 L 140,110 L 98,80 Z" fill="url(#boxRight)"/>
+    <!-- Box Side (Left/Front-Left Face) -->
+    <path d="M 12,-15 L 98,-15 L 98,80 L 12,80 Z" fill="url(#boxFront)"/>
 
-    <!-- Box edge highlights -->
-    <line x1="0" y1="95" x2="130" y2="95" stroke="#e8c49a" stroke-width="0.5" opacity="0.5"/>
-    <line x1="0" y1="190" x2="130" y2="190" stroke="#7d5a38" stroke-width="0.5" opacity="0.3"/>
+    <!-- Right Flap (hanging right) -->
+    <path d="M 98,-15 L 145,-30 L 175,0 L 140,15 Z" fill="url(#flapL)" stroke="#ab733c" stroke-width="0.5"/>
+    
+    <!-- Front Flap (hanging forward/down) -->
+    <path d="M 12,80 L 35,115 L 110,115 L 98,80 Z" fill="url(#flapR)" stroke="#925e2a" stroke-width="0.5"/>
+
+    <!-- Tape down the center of front-left face -->
+    <path d="M 50,-15 L 62,-15 L 62,80 L 50,80 Z" fill="#b08354" opacity="0.6"/>
+    <!-- Highlight on tape -->
+    <path d="M 50,-15 L 52,-15 L 52,80 L 50,80 Z" fill="#ffffff" opacity="0.15"/>
+    <!-- Shadow on corner edge of the box -->
+    <line x1="98" y1="-15" x2="98" y2="80" stroke="#774b22" stroke-width="1.5" opacity="0.6"/>
+    <!-- Highlight on top edge of front face -->
+    <line x1="12" y1="-15" x2="98" y2="-15" stroke="#ffe3c5" stroke-width="1" opacity="0.4"/>
   </g>
 
-  <!-- ==================== ICONS FLOATING OUT ==================== -->
+  <!-- ==================== ICON SELECTION (Floating up) ==================== -->
   
-  <!-- Home icon -->
-  <g transform="translate(195, 60)" filter="url(#glow)" opacity="0.95">
-    <path d="M12,3 L2,12 L5,12 L5,20 L10,20 L10,14 L14,14 L14,20 L19,20 L19,12 L22,12 Z" fill="none" stroke="#818cf8" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- 1. Paintbrush & Palette (Design/Icons) -->
+  <g transform="translate(195, 80) rotate(-15)" filter="url(#glow)" opacity="0.95">
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c1.5 0 2.7-1.2 2.7-2.7 0-.7-.3-1.4-.7-1.9-.5-.5-.8-1.2-.8-2 0-1.5 1.2-2.7 2.7-2.7H18c2.2 0 4-1.8 4-4 0-4.4-4.5-8-10-8z" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="7.5" cy="10.5" r="1.5" fill="#f43f5e"/>
+    <circle cx="11.5" cy="7.5" r="1.5" fill="#3b82f6"/>
+    <circle cx="16.5" cy="9.5" r="1.5" fill="#10b981"/>
   </g>
 
-  <!-- Search / magnifying glass -->
-  <g transform="translate(255, 38)" filter="url(#glow)" opacity="0.9">
-    <circle cx="10" cy="10" r="7" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
-    <line x1="15" y1="15" x2="20" y2="20" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <!-- 2. Sparkles/Flame (Visual Flair) -->
+  <g transform="translate(230, 45) scale(1.1)" filter="url(#glow)" opacity="0.95">
+    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" fill="none" stroke="#eab308" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="4" fill="none" stroke="#eab308" stroke-width="2"/>
   </g>
 
-  <!-- Settings gear -->
-  <g transform="translate(310, 55)" filter="url(#glow)" opacity="0.85">
-    <circle cx="10" cy="10" r="3.5" fill="none" stroke="#a78bfa" stroke-width="1.5"/>
-    <path d="M10,1 L10,3 M10,17 L10,19 M1,10 L3,10 M17,10 L19,10 M3.5,3.5 L5,5 M15,15 L16.5,16.5 M16.5,3.5 L15,5 M5,15 L3.5,16.5" stroke="#a78bfa" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 3. Terminal/Code Bracket in Circle (MCP / Technology) -->
+  <g transform="translate(270, 75) rotate(10)" filter="url(#glow)" opacity="0.9">
+    <circle cx="12" cy="12" r="10" fill="none" stroke="#06b6d4" stroke-width="2"/>
+    <path d="M8 9.5L5 12l3 2.5M16 9.5l3 2.5-3 2.5M10 16l4-8" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <!-- User/person -->
-  <g transform="translate(225, 30)" filter="url(#glow)" opacity="0.8">
-    <circle cx="8" cy="5" r="4" fill="none" stroke="#f472b6" stroke-width="1.5"/>
-    <path d="M1,17 C1,12 4,10 8,10 C12,10 15,12 15,17" fill="none" stroke="#f472b6" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 4. Heart (Favorites/Sleek) -->
+  <g transform="translate(160, 55) rotate(-10)" filter="url(#glow)" opacity="0.9">
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <!-- Bell / notification -->
-  <g transform="translate(280, 68)" filter="url(#glow)" opacity="0.85">
-    <path d="M9,2 C9,1 10,0 11,0 C12,0 13,1 13,2 C16,3.5 17,6 17,9 L17,13 L19,15 L3,15 L5,13 L5,9 C5,6 6,3.5 9,2 Z" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-linejoin="round"/>
-    <path d="M9,15 C9,17 10,18 11,18 C12,18 13,17 13,15" fill="none" stroke="#fbbf24" stroke-width="1.3"/>
+  <!-- 5. Database/Stack (Libraries) -->
+  <g transform="translate(295, 115) rotate(15)" filter="url(#glow)" opacity="0.85">
+    <ellipse cx="12" cy="5" rx="9" ry="3" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5" fill="none" stroke="#3b82f6" stroke-width="2"/>
+    <path d="M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6" fill="none" stroke="#3b82f6" stroke-width="2"/>
   </g>
 
-  <!-- Ambient sparkle particles -->
-  <circle cx="185" cy="48" r="1.5" fill="#818cf8" opacity="0.5"/>
-  <circle cx="340" cy="45" r="1" fill="#a78bfa" opacity="0.4"/>
-  <circle cx="310" cy="88" r="1.2" fill="#38bdf8" opacity="0.35"/>
-  <circle cx="250" cy="22" r="1" fill="#f472b6" opacity="0.4"/>
-  <circle cx="175" cy="75" r="0.8" fill="#fbbf24" opacity="0.3"/>
+  <!-- ==================== CONFETTI EXPLOSION ==================== -->
+  
+  <!-- Ribbons/Streams -->
+  <path d="M 170,110 Q 150,90 135,100 T 120,80" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 285,110 Q 315,95 320,115 T 345,100" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 220,50 Q 210,20 230,10 T 225,-10" fill="none" stroke="#eab308" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
+  <path d="M 260,60 Q 290,35 280,20 T 305,5" fill="none" stroke="#ec4899" stroke-width="1.8" stroke-linecap="round" opacity="0.75"/>
 
-  <!-- ==================== TEXT ==================== -->
-  <text x="590" y="148" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="800" font-size="72" fill="#ffffff" letter-spacing="5">ICON</text>
-  <text x="590" y="205" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="300" font-size="48" fill="#6b7280" letter-spacing="14">MCP</text>
+  <!-- Tiny Colorful Confetti Pieces -->
+  <!-- Squares / Rectangles -->
+  <rect x="150" y="80" width="6" height="10" rx="1.5" transform="rotate(45 150 80)" fill="#3b82f6"/>
+  <rect x="180" y="45" width="8" height="5" rx="1" transform="rotate(-30 180 45)" fill="#10b981"/>
+  <rect x="290" y="55" width="5" height="9" rx="1" transform="rotate(15 290 55)" fill="#f43f5e"/>
+  <rect x="275" y="100" width="7" height="7" rx="1" transform="rotate(60 275 100)" fill="#eab308"/>
+  <rect x="210" y="70" width="8" height="4" rx="1" transform="rotate(120 210 70)" fill="#a855f7"/>
+  <rect x="245" y="30" width="5" height="8" rx="1" transform="rotate(-75 245 30)" fill="#ec4899"/>
+  <rect x="315" y="85" width="8" height="4" rx="1" transform="rotate(40 315 85)" fill="#06b6d4"/>
 
-  <!-- Accent line under text -->
-  <line x1="500" y1="224" x2="680" y2="224" stroke="#818cf8" stroke-width="1" opacity="0.3"/>
+  <!-- Circles -->
+  <circle cx="140" cy="65" r="3" fill="#a855f7"/>
+  <circle cx="165" cy="115" r="2.5" fill="#eab308"/>
+  <circle cx="215" cy="35" r="3.5" fill="#f43f5e"/>
+  <circle cx="250" cy="85" r="2" fill="#3b82f6"/>
+  <circle cx="280" cy="35" r="3" fill="#10b981"/>
+  <circle cx="330" cy="65" r="2.5" fill="#ec4899"/>
+  <circle cx="305" cy="98" r="3" fill="#06b6d4"/>
+
+  <!-- ==================== TEXT (ICON MCP) ==================== -->
+  <g transform="translate(600, 150)">
+    <!-- Main Title -->
+    <text x="0" y="0" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="900" font-size="80" fill="#ffffff" letter-spacing="4">ICON</text>
+    <!-- Subtitle / MCP -->
+    <text x="0" y="55" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-weight="300" font-size="44" fill="#a78bfa" letter-spacing="16">MCP</text>
+    
+    <!-- Accent Line -->
+    <line x1="-120" y1="75" x2="120" y2="75" stroke="#6366f1" stroke-width="2" opacity="0.4"/>
+  </g>
 </svg>
