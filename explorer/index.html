@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <title>Icon MCP - Dark Explorer</title>
+  <meta name="description" content="Browse and customize icons for your AI." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/monolith.min.css"/>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-container">
+      <button id="nav-home" class="logo-btn" aria-label="Go to home">
+        <iconify-icon icon="lucide:box" width="24" height="24"></iconify-icon>
+        <span class="logo-text">Icon MCP</span>
+      </button>
+      <div class="search-container">
+        <label for="search-input" class="visually-hidden">Search icons globally</label>
+        <div class="search-wrapper">
+          <iconify-icon icon="lucide:search" class="search-icon"></iconify-icon>
+          <input 
+            type="search" 
+            id="search-input" 
+            placeholder="Search icons globally..." 
+            autocomplete="off" 
+            spellcheck="false"
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="view-home" class="view" style="padding-top: 0; max-width: 1400px;">
+    
+
+    <div class="hero-section">
+      <div class="hero-content">
+        <h2 class="hero-title">Discover the Perfect Icon</h2>
+        <p class="hero-subtitle">Millions of open-source icons instantly available for your AI projects.</p>
+        
+        <div class="hero-categories">
+          <button class="cat-card" data-cat="UI">
+            <iconify-icon icon="lucide:layout-template"></iconify-icon>
+            <span>UI Icons</span>
+          </button>
+          <button class="cat-card" data-cat="Material">
+            <iconify-icon icon="lucide:layers"></iconify-icon>
+            <span>Material</span>
+          </button>
+          <button class="cat-card" data-cat="Logos">
+            <iconify-icon icon="lucide:box"></iconify-icon>
+            <span>Logos</span>
+          </button>
+          <button class="cat-card" data-cat="Emoji">
+            <iconify-icon icon="lucide:smile"></iconify-icon>
+            <span>Emojis</span>
+          </button>
+          <button class="cat-card" data-cat="Programming">
+            <iconify-icon icon="lucide:terminal"></iconify-icon>
+            <span>Programming</span>
+          </button>
+          <button class="cat-card" data-cat="Flags / Maps">
+            <iconify-icon icon="lucide:map"></iconify-icon>
+            <span>Flags & Maps</span>
+          </button>
+          <button class="cat-card" data-cat="Thematic">
+            <iconify-icon icon="lucide:activity"></iconify-icon>
+            <span>Thematic</span>
+          </button>
+          <button class="cat-card" data-cat="All">
+            <iconify-icon icon="lucide:grid"></iconify-icon>
+            <span>All Libraries</span>
+          </button>
+        </div>
+      </div>
+      
+      <div class="hero-animated-icons">
+        <iconify-icon icon="lucide:zap" class="anim-icon float-1"></iconify-icon>
+        <iconify-icon icon="lucide:layers" class="anim-icon float-2"></iconify-icon>
+        <iconify-icon icon="lucide:cpu" class="anim-icon float-3"></iconify-icon>
+        <iconify-icon icon="lucide:globe" class="anim-icon float-4"></iconify-icon>
+        <iconify-icon icon="lucide:shield-check" class="anim-icon float-5"></iconify-icon>
+        <iconify-icon icon="lucide:fingerprint" class="anim-icon float-6"></iconify-icon>
+        <iconify-icon icon="lucide:heart" class="anim-icon float-7"></iconify-icon>
+        <iconify-icon icon="lucide:camera" class="anim-icon float-8"></iconify-icon>
+      </div>
+    </div>
+
+    <div class="view-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h2 style="font-size: 1.25rem;">Browse Libraries</h2>
+        <p class="subtitle" id="home-subtitle">Loading libraries...</p>
+      </div>
+      <div class="search-wrapper" style="max-width: 300px; width: 100%;">
+        <iconify-icon icon="lucide:filter" class="search-icon"></iconify-icon>
+        <input type="text" id="lib-search-input" class="modern-input" placeholder="Filter libraries..." autocomplete="off" spellcheck="false" />
+      </div>
+    </div>
+    
+    <div id="recommended-section" style="margin-bottom: 48px; display: none;">
+      <h3 style="margin-bottom: 16px; color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">Recommended</h3>
+      <div id="recommended-grid" class="library-grid"></div>
+    </div>
+
+    <div>
+      <h3 id="all-libs-title" style="margin-bottom: 16px; color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">All Libraries</h3>
+      <div id="library-grid" class="library-grid">
+
+      </div>
+    </div>
+  </main>
+
+
+  <main id="view-library" class="view hidden">
+    <div class="view-header">
+      <button class="back-btn" id="btn-back-lib">
+        <iconify-icon icon="lucide:arrow-left"></iconify-icon> Back to Libraries
+      </button>
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <h2 id="lib-title">Library Name</h2>
+          <p class="subtitle" id="lib-subtitle">0 icons</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; width: 100%; max-width: 400px; justify-content: flex-end; position: relative;">
+          <button id="btn-library-customize" class="btn-secondary" style="padding: 6px 12px; height: auto; min-height: 44px; border-color: var(--border-hover);" aria-label="Customize Library">
+            <iconify-icon icon="lucide:sliders-horizontal"></iconify-icon> Customize
+          </button>
+          <div class="search-wrapper" id="lib-icon-search-wrapper" style="flex-grow: 1;">
+            <iconify-icon icon="lucide:search" class="search-icon"></iconify-icon>
+            <input type="text" id="lib-icon-search" class="modern-input" placeholder="Search in library..." autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="icon-grid" class="icon-grid">
+
+    </div>
+  </main>
+
+
+  <main id="view-customize" class="view hidden">
+    <div class="view-header">
+      <button class="back-btn" id="btn-back-cust">
+        <iconify-icon icon="lucide:arrow-left"></iconify-icon> Back
+      </button>
+      <h2 id="cust-title">icon-name</h2>
+    </div>
+
+    <div class="customize-layout">
+
+      <div class="customize-preview-large">
+        <div class="preview-stage" id="preview-stage">
+          <iconify-icon id="cust-preview-icon" icon="" width="160" height="160"></iconify-icon>
+        </div>
+        <button id="btn-open-customize" class="btn-floating-right" aria-label="Customize Icon">
+          <iconify-icon icon="lucide:sliders-horizontal"></iconify-icon> Customize
+        </button>
+      </div>
+
+
+      <div class="customize-controls">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px;">
+          <div>
+            <h3 style="font-size: 1.125rem;">Export Options</h3>
+            <p class="subtitle" style="margin-top: 2px;">Format and copy your icon.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Format</label>
+          <div class="custom-select" id="format-select-wrapper">
+            <input type="hidden" id="cust-format" value="SVG-CODE" />
+            <button type="button" class="custom-select-trigger" id="format-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="trigger-label" id="format-trigger-label">SVG Code</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="ext-badge" id="format-trigger-badge">svg</span>
+                <iconify-icon icon="lucide:chevron-down" class="chevron"></iconify-icon>
+              </div>
+            </button>
+            <ul class="custom-select-menu hidden" id="format-select-menu" role="listbox">
+              <li class="custom-option selected" data-value="SVG-CODE" data-badge="svg"><span>SVG Code</span><span class="ext-badge">svg</span></li>
+              <li class="custom-option" data-value="PNG" data-badge="png"><span>PNG Image</span><span class="ext-badge">png</span></li>
+              <li class="custom-option" data-value="WEBP" data-badge="webp"><span>WEBP Image</span><span class="ext-badge">webp</span></li>
+              <li class="custom-option" data-value="JPEG" data-badge="jpeg"><span>JPEG Image</span><span class="ext-badge">jpeg</span></li>
+              <li class="custom-option" data-value="ICO" data-badge="ico"><span>ICO Image</span><span class="ext-badge">ico</span></li>
+              <li class="custom-option" data-value="DataURL" data-badge="base64"><span>Data URL</span><span class="ext-badge">base64</span></li>
+              <li class="custom-option" data-value="React" data-badge="tsx"><span>React Component</span><span class="ext-badge">tsx</span></li>
+              <li class="custom-option" data-value="Vue" data-badge="vue"><span>Vue Component</span><span class="ext-badge">vue</span></li>
+              <li class="custom-option" data-value="Svelte" data-badge="svelte"><span>Svelte Component</span><span class="ext-badge">svelte</span></li>
+              <li class="custom-option" data-value="Angular" data-badge="ts"><span>Angular Component</span><span class="ext-badge">ts</span></li>
+              <li class="custom-option" data-value="Solid" data-badge="tsx"><span>Solid Component</span><span class="ext-badge">tsx</span></li>
+              <li class="custom-option" data-value="Preact" data-badge="tsx"><span>Preact Component</span><span class="ext-badge">tsx</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="action-area" style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+          <button id="btn-copy-cmd" class="btn-primary">
+            <iconify-icon icon="lucide:bot"></iconify-icon> Copy Command
+          </button>
+          <div style="display: flex; gap: 12px;">
+            <button id="btn-copy-direct" class="btn-secondary" style="flex: 1;">
+              <iconify-icon icon="lucide:copy"></iconify-icon> <span id="copy-btn-text">Copy Code</span>
+            </button>
+            <button id="btn-download-direct" class="btn-secondary" style="flex: 1;">
+              <iconify-icon icon="lucide:download"></iconify-icon> Download
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group" style="margin-top: 8px;">
+          <label>Tags</label>
+          <div id="cust-tags" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+        </div>
+
+        <div class="prompt-preview" style="margin-top: 16px;">
+          <label>Command Preview</label>
+          <pre id="prompt-output"></pre>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <div id="floating-config-panel" class="drawer hidden">
+    <div class="drawer-backdrop" id="btn-close-floating-backdrop"></div>
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3 style="font-size: 1.125rem;">Customize Icon</h3>
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-reset-customize" class="btn-icon-only" aria-label="Reset configuration" title="Reset config">
+            <iconify-icon icon="lucide:rotate-ccw"></iconify-icon>
+          </button>
+          <button id="btn-close-floating" class="btn-icon-only" aria-label="Close configuration drawer">
+            <iconify-icon icon="lucide:x"></iconify-icon>
+          </button>
+        </div>
+      </div>
+      
+      <div class="floating-config-scroll">
+        <div class="control-group">
+          <label for="cust-color">Color</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+            <button class="color-preset" data-color="#ffffff" style="background: #ffffff;"></button>
+            <button class="color-preset" data-color="#000000" style="background: #000000; border: 1px solid #333;"></button>
+            <button class="color-preset" data-color="#ef4444" style="background: #ef4444;"></button>
+            <button class="color-preset" data-color="#3b82f6" style="background: #3b82f6;"></button>
+            <button class="color-preset" data-color="#10b981" style="background: #10b981;"></button>
+          </div>
+          <div class="input-with-preview">
+            <div id="cust-color-picker-container" class="pickr-container"></div>
+            <input type="text" id="cust-color" value="#ffffff" class="modern-input" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="cust-bg">Background</label>
+          <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+            <button class="bg-preset" data-color="transparent" style="background: repeating-conic-gradient(#333 0 25%, transparent 0 50%) 50% / 8px 8px;"></button>
+            <button class="bg-preset" data-color="#ffffff" style="background: #ffffff;"></button>
+            <button class="bg-preset" data-color="#000000" style="background: #000000; border: 1px solid #333;"></button>
+          </div>
+          <div class="input-with-preview">
+            <div id="cust-bg-picker-container" class="pickr-container"></div>
+            <input type="text" id="cust-bg" value="transparent" placeholder="transparent, #000" class="modern-input" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="cust-size">Size (px or %)</label>
+          <input type="text" id="cust-size" value="24" placeholder="24, 100%" class="modern-input" inputmode="numeric" />
+        </div>
+
+        <div class="control-group">
+          <label for="cust-stroke">Stroke Width (<span id="stroke-val">0</span>px)</label>
+          <input type="range" id="cust-stroke" min="0" max="4" step="0.1" value="0" />
+        </div>
+
+        <div class="control-group">
+          <label for="cust-rotation">Rotation</label>
+          <select id="cust-rotation" class="modern-input">
+            <option value="0" selected>0°</option>
+            <option value="90">90°</option>
+            <option value="180">180°</option>
+            <option value="270">270°</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Flip / Mirror</label>
+          <div style="display: flex; gap: 16px; margin-top: 4px; color: var(--text-muted); font-size: 0.875rem;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="cust-flip-h" style="width: 16px; height: 16px; cursor: pointer;" /> Horizontal
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" id="cust-flip-v" style="width: 16px; height: 16px; cursor: pointer;" /> Vertical
+            </label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="cust-padding">Padding (<span id="padding-val">0</span>px)</label>
+          <input type="range" id="cust-padding" min="0" max="12" step="1" value="0" />
+        </div>
+
+        <div class="control-group">
+          <label for="cust-opacity">Opacity (<span id="opacity-val">100</span>%)</label>
+          <input type="range" id="cust-opacity" min="0" max="1" step="0.05" value="1" />
+        </div>
+
+        <div class="control-group">
+          <label for="cust-shadow">Shadow (<span id="shadow-val">0</span>px)</label>
+          <input type="range" id="cust-shadow" min="0" max="8" step="1" value="0" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-region" aria-live="polite" class="toast-region"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

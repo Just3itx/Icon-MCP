@@ -1,0 +1,32 @@
+{
+  "name": "icon-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "icon-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "node scripts/clean-dist.mjs && tsc && node scripts/copy-assets.mjs",
+    "install:harness": "node scripts/install-harnesses.mjs",
+    "install:harnesses": "node scripts/install-harnesses.mjs",
+    "start": "node dist/index.js",
+    "update": "node scripts/install-harnesses.mjs --update",
+    "prepare": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "@types/sharp": "^0.31.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5"
+  }
+}
