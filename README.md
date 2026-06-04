@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="banner.png" width="700" alt="Icon MCP Banner" />
+  <img src="explorer/icon.svg" width="700" alt="Icon MCP Banner" />
   <p><strong>A Model Context Protocol (MCP) server for giving AI agents access to 200,000+ open-source icons.</strong></p>
 
   <p>
