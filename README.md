@@ -99,3 +99,6 @@ npx @modelcontextprotocol/inspector node dist/index.js
 ## License
 
 This project is licensed under the [ISC License](LICENSE).
+
+## Cool project made by my friend 
+https://github.com/notpoiu/roblox-executor-mcp
