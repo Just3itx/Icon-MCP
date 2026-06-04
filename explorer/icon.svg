@@ -47,6 +47,57 @@
     </filter>
   </defs>
 
+  <style>
+    /* CSS Keyframe Animations */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.05); }
+    }
+    @keyframes bobSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes bobMedium {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes bobFast {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    @keyframes confettiDrift {
+      0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(3px, -5px) rotate(8deg); }
+    }
+    @keyframes confettiDriftAlt {
+      0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(-3px, -4px) rotate(-12deg); }
+    }
+    @keyframes streamWave {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 10; }
+    }
+
+    /* Assigning animations to classes */
+    .magic-glow-el {
+      animation: pulseGlow 5s ease-in-out infinite;
+      transform-origin: 200px 130px;
+    }
+    .float-1 { animation: bobSlow 4s ease-in-out infinite; }
+    .float-2 { animation: bobMedium 4.6s ease-in-out infinite 0.4s; }
+    .float-3 { animation: bobFast 3.8s ease-in-out infinite 0.8s; }
+    .float-4 { animation: bobSlow 4.2s ease-in-out infinite 1.2s; }
+    .float-5 { animation: bobMedium 3.5s ease-in-out infinite 0.2s; }
+
+    .confetti-group-1 { animation: confettiDrift 6s ease-in-out infinite; }
+    .confetti-group-2 { animation: confettiDriftAlt 5.5s ease-in-out infinite 0.5s; }
+    
+    .stream-1 {
+      stroke-dasharray: 8 4;
+      animation: streamWave 3s linear infinite;
+    }
+  </style>
+
   <!-- Background -->
   <rect width="900" height="300" rx="16" fill="url(#bg)"/>
 
@@ -57,102 +108,109 @@
   <rect width="900" height="300" fill="url(#dotGrid)"/>
 
   <!-- Magic glow rising from the box -->
-  <ellipse cx="200" cy="130" rx="130" ry="80" fill="url(#magicGlow)" opacity="0.7"/>
+  <ellipse class="magic-glow-el" cx="200" cy="130" rx="130" ry="80" fill="url(#magicGlow)"/>
 
   <!-- ==================== BOX GROUP ==================== -->
   <g filter="url(#boxDropShadow)">
     
     <!-- 1. INSIDE HOLLOW OF THE BOX -->
-    <!-- Rhombus representing the interior top opening of the box -->
     <polygon points="130,145 200,110 270,145 200,180" fill="url(#cardboardInner)"/>
     
     <!-- Inside Glow Accent -->
     <polygon points="130,145 200,110 270,145 200,180" fill="#a78bfa" opacity="0.25" filter="url(#neonGlow)"/>
 
-    <!-- 2. BACK FLAPS (Drawn behind the box side panels) -->
-    <!-- Back-Left Flap (pointing back-left) -->
+    <!-- 2. BACK FLAPS -->
     <polygon points="200,110 130,145 90,110 160,75" fill="url(#cardboardShadow)" stroke="#75471c" stroke-width="1"/>
-    <!-- Back-Right Flap (pointing back-right) -->
     <polygon points="200,110 270,145 310,110 240,75" fill="url(#flapLight)" stroke="#9c6431" stroke-width="1"/>
 
     <!-- 3. BOX EXTERIOR SIDES -->
-    <!-- Left Face -->
     <polygon points="130,145 200,180 200,270 130,235" fill="url(#cardboardBase)"/>
-    <!-- Right Face -->
     <polygon points="200,180 270,145 270,235 200,270" fill="url(#cardboardShadow)"/>
 
-    <!-- 4. FRONT FLAPS (Drawn in front of the box side panels) -->
-    <!-- Front-Left Flap (pointing out/down-left) -->
+    <!-- 4. FRONT FLAPS -->
     <polygon points="130,145 200,180 160,225 90,190" fill="url(#flapLight)" stroke="#9c6431" stroke-width="1"/>
-    <!-- Front-Right Flap (pointing out/down-right) -->
     <polygon points="200,180 270,145 310,190 240,225" fill="url(#cardboardShadow)" stroke="#75471c" stroke-width="1"/>
 
-    <!-- 5. BOX DETAILS (Tape, Crease Lines, Highlights) -->
-    <!-- Tape running down the left face -->
+    <!-- 5. BOX DETAILS -->
     <polygon points="158,159 172,166 172,251 158,244" fill="#8c5c32" opacity="0.7"/>
-    <!-- Tape running down the right face -->
     <polygon points="228,166 242,159 242,244 228,251" fill="#75471c" opacity="0.7"/>
-    <!-- Central box vertical edge highlight -->
     <line x1="200" y1="180" x2="200" y2="270" stroke="#fce4c8" stroke-width="1.5" opacity="0.3"/>
-    <!-- Top rim highlights -->
     <line x1="130" y1="145" x2="200" y2="180" stroke="#fce4c8" stroke-width="1" opacity="0.4"/>
     <line x1="200" y1="180" x2="270" y2="145" stroke="#fce4c8" stroke-width="0.7" opacity="0.2"/>
   </g>
 
-  <!-- ==================== ICONS FLOATING OUT ==================== -->
+  <!-- ==================== ICONS FLOATING OUT (Animated) ==================== -->
   
   <!-- 1. Paintbrush (Creative Design/Icons) -->
-  <g transform="translate(185, 75) rotate(-15)" filter="url(#neonGlow)" opacity="0.95">
-    <path d="M18.85 4.85a2.5 2.5 0 0 0-3.54 0l-9.8 9.8a2 2 0 0 0-.54 1.02L4 20l4.33-.97a2 2 0 0 0 1.02-.54l9.8-9.8a2.5 2.5 0 0 0 0-3.54z" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M14 8l3 3" fill="none" stroke="#f43f5e" stroke-width="2"/>
+  <g class="float-1">
+    <g transform="translate(185, 75) rotate(-15)" filter="url(#neonGlow)" opacity="0.95">
+      <path d="M18.85 4.85a2.5 2.5 0 0 0-3.54 0l-9.8 9.8a2 2 0 0 0-.54 1.02L4 20l4.33-.97a2 2 0 0 0 1.02-.54l9.8-9.8a2.5 2.5 0 0 0 0-3.54z" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 8l3 3" fill="none" stroke="#f43f5e" stroke-width="2"/>
+    </g>
   </g>
 
   <!-- 2. Terminal/Code Bracket (MCP Tools) -->
-  <g transform="translate(255, 65) rotate(15)" filter="url(#neonGlow)" opacity="0.95">
-    <path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" fill="none" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="float-2">
+    <g transform="translate(255, 65) rotate(15)" filter="url(#neonGlow)" opacity="0.95">
+      <path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16" fill="none" stroke="#06b6d4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <!-- 3. Heart (Favorites) -->
-  <g transform="translate(145, 50) rotate(-10)" filter="url(#neonGlow)" opacity="0.9">
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g class="float-3">
+    <g transform="translate(145, 50) rotate(-10)" filter="url(#neonGlow)" opacity="0.9">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <!-- 4. Gear (Config/Setup) -->
-  <g transform="translate(290, 95) rotate(10)" filter="url(#neonGlow)" opacity="0.9">
-    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="3" fill="none" stroke="#a855f7" stroke-width="2"/>
+  <g class="float-4">
+    <g transform="translate(290, 95) rotate(10)" filter="url(#neonGlow)" opacity="0.9">
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" fill="none" stroke="#a855f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="3" fill="none" stroke="#a855f7" stroke-width="2"/>
+    </g>
   </g>
 
   <!-- 5. Star (Highlight/Feature) -->
-  <g transform="translate(215, 30)" filter="url(#neonGlow)" opacity="0.95">
-    <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="none" stroke="#eab308" stroke-width="2" stroke-linejoin="round"/>
+  <g class="float-5">
+    <g transform="translate(215, 30)" filter="url(#neonGlow)" opacity="0.95">
+      <polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9" fill="none" stroke="#eab308" stroke-width="2" stroke-linejoin="round"/>
+    </g>
   </g>
 
   <!-- ==================== CONFETTI EXPLOSION ==================== -->
   
-  <!-- Ribbon streams shooting out -->
-  <path d="M 125,120 Q 95,95 105,70 T 80,50" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-  <path d="M 285,120 Q 320,105 315,80 T 345,60" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-  <path d="M 160,80 Q 150,30 175,10" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
-  <path d="M 255,80 Q 280,40 265,15" fill="none" stroke="#eab308" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <!-- Ribbon streams shooting out (Animated dash array) -->
+  <path class="stream-1" d="M 125,120 Q 95,95 105,70 T 80,50" fill="none" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <path class="stream-1" d="M 285,120 Q 320,105 315,80 T 345,60" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  <path class="stream-1" d="M 160,80 Q 150,30 175,10" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <path class="stream-1" d="M 255,80 Q 280,40 265,15" fill="none" stroke="#eab308" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
 
-  <!-- Scattering confetti pieces -->
-  <!-- Squares / Rects -->
-  <rect x="100" y="85" width="5" height="9" rx="1" transform="rotate(45 100 85)" fill="#eab308"/>
-  <rect x="140" y="105" width="8" height="4" rx="1" transform="rotate(-30 140 105)" fill="#3b82f6"/>
-  <rect x="155" y="40" width="4" height="8" rx="1" transform="rotate(15 155 40)" fill="#ec4899"/>
-  <rect x="235" y="25" width="8" height="4" rx="1" transform="rotate(60 235 25)" fill="#a855f7"/>
-  <rect x="290" y="45" width="5" height="9" rx="1" transform="rotate(-45 290 45)" fill="#10b981"/>
-  <rect x="320" y="85" width="9" height="5" rx="1" transform="rotate(20 320 85)" fill="#f43f5e"/>
-  
-  <!-- Small Circles -->
-  <circle cx="90" cy="70" r="2.5" fill="#ec4899"/>
-  <circle cx="120" cy="50" r="3" fill="#a855f7"/>
-  <circle cx="180" cy="30" r="2" fill="#06b6d4"/>
-  <circle cx="210" cy="60" r="2.5" fill="#eab308"/>
-  <circle cx="270" cy="35" r="3" fill="#f43f5e"/>
-  <circle cx="310" cy="60" r="2" fill="#3b82f6"/>
-  <circle cx="335" cy="78" r="2.5" fill="#10b981"/>
+  <!-- Scattering confetti pieces (Animated groups) -->
+  <g class="confetti-group-1">
+    <!-- Squares / Rects -->
+    <rect x="100" y="85" width="5" height="9" rx="1" transform="rotate(45 100 85)" fill="#eab308"/>
+    <rect x="155" y="40" width="4" height="8" rx="1" transform="rotate(15 155 40)" fill="#ec4899"/>
+    <rect x="290" y="45" width="5" height="9" rx="1" transform="rotate(-45 290 45)" fill="#10b981"/>
+    
+    <!-- Small Circles -->
+    <circle cx="90" cy="70" r="2.5" fill="#ec4899"/>
+    <circle cx="180" cy="30" r="2" fill="#06b6d4"/>
+    <circle cx="270" cy="35" r="3" fill="#f43f5e"/>
+    <circle cx="335" cy="78" r="2.5" fill="#10b981"/>
+  </g>
+
+  <g class="confetti-group-2">
+    <!-- Squares / Rects -->
+    <rect x="140" y="105" width="8" height="4" rx="1" transform="rotate(-30 140 105)" fill="#3b82f6"/>
+    <rect x="235" y="25" width="8" height="4" rx="1" transform="rotate(60 235 25)" fill="#a855f7"/>
+    <rect x="320" y="85" width="9" height="5" rx="1" transform="rotate(20 320 85)" fill="#f43f5e"/>
+
+    <!-- Small Circles -->
+    <circle cx="120" cy="50" r="3" fill="#a855f7"/>
+    <circle cx="210" cy="60" r="2.5" fill="#eab308"/>
+    <circle cx="310" cy="60" r="2" fill="#3b82f6"/>
+  </g>
 
   <!-- ==================== TEXT (ICON MCP) ==================== -->
   <g transform="translate(600, 150)">
