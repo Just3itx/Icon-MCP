@@ -671,32 +671,6 @@ async function run() {
         return;
       }
 
-      // Handle on-the-fly compilation of app.ts to app.js during development
-      if (path.basename(safePath) === 'app.js' && !fs.existsSync(filePath)) {
-        const tsPath = path.join(explorerDir, 'app.ts');
-        if (fs.existsSync(tsPath)) {
-          try {
-            const ts = await import("typescript");
-            const tsCode = fs.readFileSync(tsPath, "utf8");
-            const jsCode = ts.default.transpileModule(tsCode, {
-              compilerOptions: { 
-                target: ts.default.ScriptTarget.ES2022,
-                module: ts.default.ModuleKind.ESNext
-              }
-            }).outputText;
-
-            res.writeHead(200, { 
-              "Content-Type": "text/javascript",
-              "Cache-Control": "no-cache"
-            });
-            res.end(jsCode);
-            return;
-          } catch (tsError) {
-            console.error("Failed to dynamically compile app.ts:", tsError);
-          }
-        }
-      }
-
       fs.stat(filePath, (err, stats) => {
         if (err || !stats.isFile()) {
           res.writeHead(404);
